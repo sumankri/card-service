@@ -9,6 +9,7 @@ import com.eazybytes.cards.mapper.CardsMapper;
 import com.eazybytes.cards.repository.CardsRepository;
 import com.eazybytes.cards.service.ICardsService;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -16,6 +17,7 @@ import java.util.Random;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class CardsServiceImpl implements ICardsService{
     private CardsRepository cardsRepository;
 
@@ -28,6 +30,7 @@ public class CardsServiceImpl implements ICardsService{
         if(optionalCards.isPresent()){
             throw new CardAlreadyExistsException("Card already registered with given mobileNumber "+mobileNumber);
         }
+        log.info("Saving new card details with mobile no : {}", mobileNumber);
         cardsRepository.save(createNewCard(mobileNumber));
     }
 
